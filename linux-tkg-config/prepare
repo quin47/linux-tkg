@@ -336,6 +336,8 @@ _set_cpu_scheduler() {
     _avail_cpu_scheds=("eevdf" "bore" "pds" "bmq")
   elif [ "$_kver" = "610" ]; then
     _avail_cpu_scheds=("eevdf" "bore" "pds" "bmq")
+  elif [ "$_kver" = "611" ]; then
+    _avail_cpu_scheds=("eevdf" "bore")
   else
     _avail_cpu_scheds=("$_default_cpu_sched")
   fi
@@ -784,7 +786,7 @@ _tkg_srcprep() {
     rev=5
   elif [ "$_kver" = "512" ] || [ "$_kver" = "515" ] || [ "$_kver" = "516" ] || [ "$_kver" = "601" ] || [ "$_kver" = "603" ] || [ "$_kver" = "608" ]; then
     rev=1
-  elif [ "$_kver" = "518" ] || [ "$_kver" = "602" ] || [ "$_kver" = "607" ]; then
+  elif [ "$_kver" = "518" ] || [ "$_kver" = "602" ] || [ "$_kver" = "607" ] || [ "$_kver" = "610" ]; then
     rev=2
   else
     rev=0
@@ -971,6 +973,7 @@ _tkg_srcprep() {
 
   # buggy project C/PSI interaction workaround
   if [ "${_cpusched}" = "pds" ] || [ "${_cpusched}" = "bmq" ]; then
+    _disable "PSI"
     _enable "PSI_DEFAULT_DISABLED"
     # Disable MLX5_CORE on Prjc
     plain "Disable MLX5_CORE for Prjc"
